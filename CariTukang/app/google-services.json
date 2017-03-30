@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "573989727417",
+    "firebase_url": "https://cektukang.firebaseio.com",
+    "project_id": "cektukang",
+    "storage_bucket": "cektukang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573989727417:android:6eb1d23d19fcc777",
+        "android_client_info": {
+          "package_name": "com.zone.caritukang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573989727417-4svmg65ntdutua69c2u5r5pm724jii6o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zone.caritukang",
+            "certificate_hash": "4824f1b3cb465c79aae73b2612d59f95502c25a3"
+          }
+        },
+        {
+          "client_id": "573989727417-p7g6b8rekgh8g3rfk8gd4ae0mpua29lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs9AxiqL3OTkwqgQSXDxZnqYFiwUn4FrI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573989727417-p7g6b8rekgh8g3rfk8gd4ae0mpua29lr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
