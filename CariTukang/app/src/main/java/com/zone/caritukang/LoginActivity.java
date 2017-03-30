@@ -1,5 +1,6 @@
 package com.zone.caritukang;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: associate the session userID with your user model
                 Toast.makeText(getApplicationContext(), "Authentication successful for "
                         + phoneNumber, Toast.LENGTH_LONG).show();
+
+
+
+                Intent x = new Intent(LoginActivity.this, DataUserActivity.class);
+                startActivity(x);
+
+
             }
 
             @Override

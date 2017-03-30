@@ -65,43 +65,43 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance();
-        mykotaDbReference =  mFirebaseDatabaseReference.getReference().child("kota");
+//        mFirebaseDatabaseReference = FirebaseDatabase.getInstance();
+//        mykotaDbReference =  mFirebaseDatabaseReference.getReference().child("kota");
+//
+//        System.out.println("KOTA" + mykotaDbReference);
+//
+//
+//
+//        mFirebaseDatabaseReference.getReference().child("kota").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Is better to use a List, because you don't know the size
+//                // of the iterator returned by dataSnapshot.getChildren() to
+//                // initialize the array
+//                final List<String> areas = new ArrayList<String>();
+//
+//                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+//                    String areaName = areaSnapshot.child("nama").getValue(String.class);
+//                    areas.add(areaName);
+//                }
+//
+//                Spinner areaSpinner = (Spinner) findViewById(R.id.kota_spinner);
+//                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, areas);
+//                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                areaSpinner.setAdapter(areasAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
-        System.out.println("KOTA" + mykotaDbReference);
 
 
-
-        mFirebaseDatabaseReference.getReference().child("kota").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Is better to use a List, because you don't know the size
-                // of the iterator returned by dataSnapshot.getChildren() to
-                // initialize the array
-                final List<String> areas = new ArrayList<String>();
-
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String areaName = areaSnapshot.child("nama").getValue(String.class);
-                    areas.add(areaName);
-                }
-
-                Spinner areaSpinner = (Spinner) findViewById(R.id.kota_spinner);
-                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, areas);
-                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                areaSpinner.setAdapter(areasAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-        //new JSONAsyncTask().execute(ROOT_URL+"/carijasa/kategori.php");
-        //new KOTAAsyncTask().execute(ROOT_URL+"/carijasa/kota.php");
-        //new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php");
+        new JSONAsyncTask().execute(ROOT_URL+"/carijasa/kategori.php");
+        new KOTAAsyncTask().execute(ROOT_URL+"/carijasa/kota.php");
+        new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php");
 
 
 

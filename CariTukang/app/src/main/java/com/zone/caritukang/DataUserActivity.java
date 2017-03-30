@@ -33,10 +33,13 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     //Buttons
     private Button buttonChoose;
+    private Button buttonChoose2;
     private Button buttonUpload;
+    private Button buttonUpload2;
 
     //ImageView
     private ImageView imageView;
+    private ImageView imageView2;
 
     //a Uri object to store file path
     private Uri filePath;
@@ -52,13 +55,17 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
         //getting views from layout
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
+        buttonChoose2 = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
+        buttonUpload2 = (Button) findViewById(R.id.buttonUpload);
 
         imageView = (ImageView) findViewById(R.id.imageView);
 
         //attaching listener
         buttonChoose.setOnClickListener(this);
+        buttonChoose2.setOnClickListener(this);
         buttonUpload.setOnClickListener(this);
+        buttonUpload2.setOnClickListener(this);
 
         //getting firebase storage reference
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -66,6 +73,16 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     //method to show file chooser
     private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+
+
+    //method to show file chooser
+    private void showFileChooser2() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -148,6 +165,70 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
+    //this method will upload the file
+    private void uploadFile2() {
+        //if there is a file to upload
+        if (filePath != null) {
+            //displaying a progress dialog while upload is going on
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading");
+            progressDialog.show();
+
+
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+
+            StorageReference riversRef = storageReference.child("ktp/ktp"+ts+".jpg");
+            riversRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            //if the upload is successfull
+                            //hiding the progress dialog
+                            progressDialog.dismiss();
+
+
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                            System.out.println("Listener Upload File --> "+downloadUrl);
+
+                            //and displaying a success toast
+                            Toast.makeText(getApplicationContext(), "File Uploaded downloadUrl " + downloadUrl, Toast.LENGTH_LONG).show();
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            //if the upload is not successfull
+                            //hiding the progress dialog
+                            progressDialog.dismiss();
+
+                            //and displaying error message
+                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //calculating progress percentage
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+
+                            //displaying percentage in progress dialog
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+                        }
+                    });
+        }
+        //if there is not any file
+        else {
+            //you can display an error toast
+        }
+    }
+
+
+
+
     @Override
     public void onClick(View view) {
         //if the clicked button is choose
@@ -155,8 +236,17 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             showFileChooser();
         }
         //if the clicked button is upload
-        else if (view == buttonUpload) {
+        if (view == buttonUpload) {
             uploadFile();
+        }
+
+
+        if (view == buttonChoose2) {
+            showFileChooser2();
+        }
+        //if the clicked button is upload
+        if (view == buttonUpload2) {
+            uploadFile2();
         }
     }
 }
