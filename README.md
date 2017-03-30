@@ -20,7 +20,7 @@ Aplikasi ini juga membutuhkan beberapa hal agar kode sumbernya bisa dibuka :
 
 
 >### **Support Cari Tukang**
-> 1. [Facebook Pantau Harga](https://www.facebook.com/iqbalhood)
- >2. [Twitter Pantau Harga](https://twitter.com/iqbalhood)
+> 1. [Facebook Creator](https://www.facebook.com/iqbalhoood)
+ >2. [Instagram Creator](https://instagram.com/iqbalhood)
  >3. [Web Cari Tukang](http://zoneordering.net/)
  >4. Kontak Email **[iqbalhood@gmail.com](iqbalhood@gmail.com)**
