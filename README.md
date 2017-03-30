@@ -2,7 +2,7 @@
 
 ![enter image description here](https://www.handymanassociation.org/wp-content/themes/directorypress/thumbs/15266-9932-2016-12-31995522.jpg)
 
-[PantauHarga](http://caritukang.id/) adalah layanan situs web dan aplikasi untuk membantu para tukang (para penyedia jasa perbaikan dll) di daerah kota medan untuk memasang jasanya dan untuk para masyarakat yang ingin mendapatkan bantuan.
+[Cari Tukang](http://caritukang.id/) adalah layanan situs web dan aplikasi untuk membantu para tukang (para penyedia jasa perbaikan dll) di daerah kota medan untuk memasang jasanya dan untuk para masyarakat yang ingin mendapatkan bantuan.
 
 
 Aplikasi ini menggunakan beberapa API dari Google, yaitu API Firebase . Cara pembuatan API Key dari Google tersebut bisa dilihat lengkap di : 
