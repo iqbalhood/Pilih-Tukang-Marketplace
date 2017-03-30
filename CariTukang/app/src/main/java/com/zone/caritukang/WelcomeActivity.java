@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import com.digits.sdk.android.Digits;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-import io.fabric.sdk.android.Fabric;
 
 
 public class WelcomeActivity extends AppCompatActivity {
