@@ -3,16 +3,20 @@ package com.zone.caritukang;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ParseException;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -25,17 +29,29 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+
+import static com.zone.caritukang.DataURL.ROOT_URL;
 
 public class DataUserActivity extends AppCompatActivity implements View.OnClickListener {
     //a constant to track the file chooser intent
     private static final int PICK_IMAGE_REQUEST = 234;
+    private static final int PICK_IMAGE_REQUEST2 = 234;
 
     //Buttons
     private Button buttonChoose;
     private Button buttonChoose2;
-    private Button buttonUpload;
-    private Button buttonUpload2;
+    private Button btnSubmit;
 
     //ImageView
     private ImageView imageView;
@@ -43,9 +59,21 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     //a Uri object to store file path
     private Uri filePath;
+    private Uri filePath2;
 
     //firebase storage reference
     private StorageReference storageReference;
+
+    String stat = "";
+
+    String stat1 = "1";
+    String stat2 = "2";
+
+
+    String URL1 =   "";
+    String URL2 =   "";
+
+    String HP  = "";
 
 
     @Override
@@ -53,19 +81,45 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_user);
 
+        // Fungsi Cek data Apakah User telah ada
+        Bundle extras = getIntent().getExtras();
+        HP = extras.getString("phone");
+       String nama = extras.getString("nama");
+        String detail = extras.getString("detail");
+        String g1 = extras.getString("foto");
+        String g2 = extras.getString("foto_ktp");
+
+        System.out.println(" G1 "+ g1);
+
+
+        //Setup
         //getting views from layout
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
-        buttonChoose2 = (Button) findViewById(R.id.buttonChoose);
-        buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        buttonUpload2 = (Button) findViewById(R.id.buttonUpload);
+        buttonChoose2 = (Button) findViewById(R.id.buttonChoose2);
+        btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        imageView2 = (ImageView) findViewById(R.id.imageView2);
+
+        EditText edNama = (EditText)findViewById(R.id.edNama);
+        EditText edAlamat = (EditText)findViewById(R.id.edAlamat);
+        EditText edDetail = (EditText)findViewById(R.id.edDetail);
+
+        edNama.setText(nama);
+        edDetail.setText(detail);
+        edAlamat.setText(detail);
+//        Glide.with(this).load(g1).into(imageView);
+//        Glide.with(this).load(g2).into(imageView2);
+
+
+
+
+
 
         //attaching listener
         buttonChoose.setOnClickListener(this);
         buttonChoose2.setOnClickListener(this);
-        buttonUpload.setOnClickListener(this);
-        buttonUpload2.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
 
         //getting firebase storage reference
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -77,6 +131,9 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+        uploadFile();
+
     }
 
 
@@ -86,18 +143,31 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST2);
+
+        uploadFile2();
     }
 
     //handling the image chooser activity result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if ( stat == stat1 && requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else if (stat == stat2 && requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath2 = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath2);
+                imageView2.setImageBitmap(bitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -130,10 +200,13 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
+
+                            URL1 = String.valueOf(downloadUrl);
+
                             System.out.println("Listener Upload File --> "+downloadUrl);
 
                             //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "File Uploaded downloadUrl " + downloadUrl, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "File Foto Uploaded", Toast.LENGTH_LONG).show();
 
                         }
                     })
@@ -169,7 +242,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
     //this method will upload the file
     private void uploadFile2() {
         //if there is a file to upload
-        if (filePath != null) {
+        if (filePath2 != null) {
             //displaying a progress dialog while upload is going on
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading");
@@ -180,7 +253,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             String ts = tsLong.toString();
 
             StorageReference riversRef = storageReference.child("ktp/ktp"+ts+".jpg");
-            riversRef.putFile(filePath)
+            riversRef.putFile(filePath2)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -190,11 +263,13 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            URL2 = String.valueOf(downloadUrl);
+
 
                             System.out.println("Listener Upload File --> "+downloadUrl);
 
                             //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "File Uploaded downloadUrl " + downloadUrl, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), " File KTP Uploaded ", Toast.LENGTH_LONG).show();
 
                         }
                     })
@@ -233,20 +308,155 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         //if the clicked button is choose
         if (view == buttonChoose) {
+            stat = stat1;
             showFileChooser();
-        }
-        //if the clicked button is upload
-        if (view == buttonUpload) {
-            uploadFile();
-        }
-
-
-        if (view == buttonChoose2) {
+        }else  if (view == buttonChoose2) {
+            System.out.println("Button 2 di klik ");
+            stat = stat2;
             showFileChooser2();
         }
-        //if the clicked button is upload
-        if (view == buttonUpload2) {
-            uploadFile2();
+        else  if (view == btnSubmit) {
+
+
+            Bundle extras = getIntent().getExtras();
+
+            String  phone = extras.getString("phone");
+
+            System.out.println(" PHONE USERNYA "+ HP );
+
+
+            EditText edNama = (EditText)findViewById(R.id.edNama);
+            EditText edAlamat = (EditText)findViewById(R.id.edAlamat);
+            EditText edDetail = (EditText)findViewById(R.id.edDetail);
+
+            new JSONAsyncTask().execute(ROOT_URL+"/carijasa/submit_data_tukang.php?phone="+HP+
+                                                "&nama="+edNama.getText().toString()+
+                                                "&alamat="+edAlamat.getText().toString()+
+                                                "&detail="+edDetail.getText().toString()+
+                                                "&foto="+URL1+
+                                                "&foto_ktp="+URL2);
+
+
+
+
+
+
+
+
+
+        }
+
+
+    }
+
+    //Class to Sumbit Data
+
+    class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(DataUserActivity.this);
+            dialog.setMessage("Sedang Mengambil Data...");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+
+
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+
+
+
+
+                    JSONObject jsono = new JSONObject(data);
+
+
+                    System.out.println("jasa //------------------>> "+ data);
+
+
+
+
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+//            if(nama.isEmpty()){
+//
+//                System.out.println("Kosong Barang Tu");
+//                Intent y = new Intent(LoginActivity.this, DataUserActivity.class);
+//                y.putExtra("phone",phone);
+//                startActivity(y);
+//
+//
+//
+//
+//
+//
+//            }else{
+//                Intent x = new Intent(LoginActivity.this, SettingsActivity.class);
+//                startActivity(x);
+//            }
+
+
+
+
+            if(result == false)
+                Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+
+
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

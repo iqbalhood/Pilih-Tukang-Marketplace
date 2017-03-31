@@ -33,7 +33,7 @@
         <activity android:name=".SearchResult" />
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"
+            android:label="Detail Tukang"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -41,7 +41,11 @@
             android:value="42e94bc29662d161e59dc929bc77978058fe7c6e" />
 
         <activity android:name=".LoginActivity" />
-        <activity android:name=".DataUserActivity"></activity>
+        <activity android:name=".DataUserActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".PengaturanActivity" android:label="Setting"></activity>
     </application>
 
 </manifest>
