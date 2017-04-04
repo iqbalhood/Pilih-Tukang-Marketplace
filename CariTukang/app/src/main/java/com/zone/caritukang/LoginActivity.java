@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         DigitsAuthButton digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
         digitsButton.setCallback(new AuthCallback() {
@@ -91,6 +94,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+
+    }
+
 
 
 

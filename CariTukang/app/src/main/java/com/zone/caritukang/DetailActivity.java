@@ -9,11 +9,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+
+import static com.zone.caritukang.DataURL.ROOT_URL;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -52,9 +58,23 @@ public class DetailActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        Bundle extras = getIntent().getExtras();
+        String id  = extras.getString("id");
+        String nama = extras.getString("nama");
+        String detail = extras.getString("detail");
+        String foto = extras.getString("foto");
+        String phone = extras.getString("id");
+
+
         ImageView imgDetail = (ImageView)findViewById(R.id.imgDetail);
 
-        Glide.with(this).load("http://goo.gl/gEgYUd").into(imgDetail);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef1 = storage.getReference(foto);
+
+
+        Glide.with(this).using(new FirebaseImageLoader()).load(storageRef1).into(imgDetail);
+
+
 
 
 
@@ -67,10 +87,16 @@ public class DetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+
     }
 
 
@@ -125,11 +151,11 @@ public class DetailActivity extends AppCompatActivity {
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
 
-                        phone    = (object.getString("phone"));
-                        nama     = (object.getString("nama"));
-                        detail   = (object.getString("detail"));
-                        foto     = (object.getString("foto"));
-                        portofolio     = (object.getString("foto"));
+                        phone      = (object.getString("phone"));
+                        nama       = (object.getString("nama"));
+                        detail     = (object.getString("detail"));
+                        foto       = (object.getString("foto"));
+                        portofolio = (object.getString("foto"));
 
 
 

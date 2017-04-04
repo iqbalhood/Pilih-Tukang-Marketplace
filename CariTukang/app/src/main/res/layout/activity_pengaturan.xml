@@ -8,23 +8,35 @@
 
     <Button
         android:id="@+id/profilUser"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_green"
+        android:textColor="@color/common_google_signin_btn_text_dark"
         android:text="Atur Profil"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_btn_green"
+        android:textColor="@color/common_google_signin_btn_text_dark"
         android:text="Galleri Produk"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_btn_green"
+        android:textColor="@color/common_google_signin_btn_text_dark"
         android:text="Ubah Nomor Hp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_btn_green"
+        android:textColor="@color/common_google_signin_btn_text_dark"
         android:text="Logout"/>
 
 </LinearLayout>

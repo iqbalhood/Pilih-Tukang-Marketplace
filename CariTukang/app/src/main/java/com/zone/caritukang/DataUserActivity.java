@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -80,11 +82,12 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_user);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Fungsi Cek data Apakah User telah ada
         Bundle extras = getIntent().getExtras();
         HP = extras.getString("phone");
-       String nama = extras.getString("nama");
+        String nama = extras.getString("nama");
         String detail = extras.getString("detail");
         String g1 = extras.getString("foto");
         String g2 = extras.getString("foto_ktp");
@@ -108,8 +111,28 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         edNama.setText(nama);
         edDetail.setText(detail);
         edAlamat.setText(detail);
-//        Glide.with(this).load(g1).into(imageView);
-//        Glide.with(this).load(g2).into(imageView2);
+
+        if(!empty(g1)){
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef1 = storage.getReference(g1);
+            StorageReference storageRef2 = storage.getReference(g2);
+
+            URL1 = g1 ;
+            URL2 = g2 ;
+
+
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageRef1).into(imageView);
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageRef2).into(imageView2);
+
+            System.out.println("G2 INFO "+ g2);
+
+
+
+
+        }
+
+
 
 
 
@@ -123,6 +146,18 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
         //getting firebase storage reference
         storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
+
+    }
+
+    public static boolean empty( final String s ) {
+        // Null-safe, short-circuit evaluation.
+        return s == null || s.trim().isEmpty();
     }
 
     //method to show file chooser
@@ -321,7 +356,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-                            URL2 = String.valueOf("images/pic"+ts+".jpg");
+                            URL2 = String.valueOf("ktp/ktp"+ts+".jpg");
 
 
                             //and displaying a success toast
@@ -469,6 +504,11 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
             // adapter.notifyDataSetChanged();
+
+            Toast.makeText(DataUserActivity.this, "Proses Update Berhasil", Toast.LENGTH_LONG).show();
+            finish();
+
+
 
 //            if(nama.isEmpty()){
 //

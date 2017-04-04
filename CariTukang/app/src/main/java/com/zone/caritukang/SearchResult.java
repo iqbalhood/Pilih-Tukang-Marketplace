@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ public class SearchResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -64,10 +66,17 @@ public class SearchResult extends AppCompatActivity {
                                     long id) {
                 // TODO Auto-generated method stub
                 String idnya = String.valueOf(jasaList.get(position).getId());
+                String namanya = String.valueOf(jasaList.get(position).getNama());
+                String fotonya = String.valueOf(jasaList.get(position).getFoto());
+                String detailnya = String.valueOf(jasaList.get(position).getDetail());
+
                 Log.v("IDnya :", idnya);
 
                 Intent k = new Intent(SearchResult.this, DetailActivity.class);
-             //   k.putExtra("id", idnya );
+                k.putExtra("id", idnya );
+                k.putExtra("nama", namanya );
+                k.putExtra("foto", fotonya );
+                k.putExtra("detail", detailnya );
                 startActivity(k);
 
             }
@@ -80,6 +89,16 @@ public class SearchResult extends AppCompatActivity {
 
 
 
+
+
+
+
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
 
     }
 

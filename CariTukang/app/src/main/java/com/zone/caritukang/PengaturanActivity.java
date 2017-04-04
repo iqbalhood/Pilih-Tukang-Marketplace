@@ -6,6 +6,7 @@ import android.net.ParseException;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -62,6 +63,13 @@ public class PengaturanActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return true;
 
     }
 
