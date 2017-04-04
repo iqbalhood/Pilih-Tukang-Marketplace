@@ -6,5 +6,5 @@ package com.zone.caritukang;
 
 public class DataURL {
 
-    public  static  String ROOT_URL = "http://10.10.10.17";
+    public  static  String ROOT_URL = "http://zoneordering.net/panggiltukang/";
 }

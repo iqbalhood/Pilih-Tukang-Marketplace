@@ -127,12 +127,15 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     //method to show file chooser
     private void showFileChooser() {
+
+        stat = stat1;
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
 
-        uploadFile();
+
 
     }
 
@@ -140,19 +143,33 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     //method to show file chooser
     private void showFileChooser2() {
+
+        stat = stat2;
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST2);
 
-        uploadFile2();
+
     }
 
     //handling the image chooser activity result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if ( stat == stat1 && requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+
+        Toast.makeText(getApplicationContext(), "FUPLOAD DILAKUKAN " + stat, Toast.LENGTH_LONG).show();
+
+        if ( stat == stat1){
+            Toast.makeText(getApplicationContext(), "WIDIW " + stat, Toast.LENGTH_LONG).show();
+            if ( requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+
+
+            //uploadFile();
+
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
@@ -161,9 +178,19 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            }
+
+            uploadFile();
+
         }
 
-        else if (stat == stat2 && requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if ( stat == stat2){
+            Toast.makeText(getApplicationContext(), "WADAW " + stat, Toast.LENGTH_LONG).show();
+            if (requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//
+//            uploadFile2();
+//
+//
             filePath2 = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath2);
@@ -172,7 +199,43 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             } catch (IOException e) {
                 e.printStackTrace();
             }
+         }
+
+            uploadFile2();
+
+
         }
+
+//        if ( stat == stat1 && requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//
+//
+//
+//            uploadFile();
+//
+//            filePath = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                imageView.setImageBitmap(bitmap);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        else if (stat == stat2 && requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//
+//            uploadFile2();
+//
+//
+//            filePath2 = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath2);
+//                imageView2.setImageBitmap(bitmap);
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     //this method will upload the file
@@ -186,9 +249,9 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
             Long tsLong = System.currentTimeMillis()/1000;
-            String ts = tsLong.toString();
+            final String ts = tsLong.toString();
 
-            StorageReference riversRef = storageReference.child("images/pic"+ts+".jpg");
+             StorageReference riversRef = storageReference.child("images/pic"+ts+".jpg");
             riversRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -198,12 +261,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
                             progressDialog.dismiss();
 
 
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-
-                            URL1 = String.valueOf(downloadUrl);
-
-                            System.out.println("Listener Upload File --> "+downloadUrl);
+                            URL1 = String.valueOf("images/pic"+ts+".jpg");
 
                             //and displaying a success toast
                             Toast.makeText(getApplicationContext(), "File Foto Uploaded", Toast.LENGTH_LONG).show();
@@ -250,7 +308,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
             Long tsLong = System.currentTimeMillis()/1000;
-            String ts = tsLong.toString();
+            final String ts = tsLong.toString();
 
             StorageReference riversRef = storageReference.child("ktp/ktp"+ts+".jpg");
             riversRef.putFile(filePath2)
@@ -262,11 +320,9 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
                             progressDialog.dismiss();
 
 
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            URL2 = String.valueOf(downloadUrl);
 
+                            URL2 = String.valueOf("images/pic"+ts+".jpg");
 
-                            System.out.println("Listener Upload File --> "+downloadUrl);
 
                             //and displaying a success toast
                             Toast.makeText(getApplicationContext(), " File KTP Uploaded ", Toast.LENGTH_LONG).show();
@@ -388,7 +444,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
 
-                    JSONObject jsono = new JSONObject(data);
+//                    JSONObject jsono = new JSONObject(data);
 
 
                     System.out.println("jasa //------------------>> "+ data);
@@ -404,8 +460,6 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return false;

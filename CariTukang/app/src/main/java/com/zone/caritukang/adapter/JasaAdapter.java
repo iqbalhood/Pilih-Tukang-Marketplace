@@ -20,6 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.zone.caritukang.R;
 import com.zone.caritukang.setget.Jasa;
 
@@ -31,6 +34,9 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
     LayoutInflater vi;
     int Resource;
     ViewHolder holder;
+
+    //firebase storage reference
+    private StorageReference storageReference;
 
     public JasaAdapter(Context context, int resource, ArrayList<Jasa> objects) {
         super(context, resource, objects);
@@ -55,8 +61,15 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
         } else {
             holder = (ViewHolder) v.getTag();
         }
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference(jasaList.get(position).getFoto());
+
+        //System.out.println(" FOTO GETTTT -- >"+ jasaList.get(position).getFoto());
+
+     //   StorageReference riversRef = storageReference.child(String.valueOf(jasaList.get(position).getFoto()));
         holder.imageview.setImageResource(R.drawable.tukang);
-        Glide.with(v.getContext()).load(jasaList.get(position).getFoto()).into(holder.imageview);
+        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).into(holder.imageview);
         holder.tvNama.setText(jasaList.get(position).getNama());
         holder.tvDetail.setText(jasaList.get(position).getDetail());
         return v;
