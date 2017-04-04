@@ -4,33 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.zone.caritukang.WelcomeActivity">
 
     <ImageView
-        android:layout_marginTop="40dp"
-        android:layout_width="100dp"
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_home" />
+        android:src="@drawable/logo" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CARI TUKANG"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="20dp"
-        android:textAlignment="center"
-        />
+
 
 
     <Button
         android:id="@+id/buttonCari"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:background="@drawable/dgts__digits_btn"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_btn_green"
         android:textStyle="bold"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:layout_height="wrap_content"
@@ -39,11 +33,13 @@
     <Button
         android:id="@+id/buttonPasang"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="@color/common_google_signin_btn_text_dark"
-        android:background="@drawable/dgts__digits_btn"
+        android:background="@drawable/bg_btn_green"
         android:text="Pasang Jasa" />
 
 
