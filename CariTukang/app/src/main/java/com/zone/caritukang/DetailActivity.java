@@ -75,14 +75,6 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(this).using(new FirebaseImageLoader()).load(storageRef1).into(imgDetail);
 
 
-
-
-
-
-
-
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

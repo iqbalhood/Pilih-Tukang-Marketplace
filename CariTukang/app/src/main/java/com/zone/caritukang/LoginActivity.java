@@ -2,8 +2,10 @@ package com.zone.caritukang;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,9 +73,25 @@ public class LoginActivity extends AppCompatActivity {
 
 
         DigitsAuthButton digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
+
+        digitsButton.setText("Masukkan No. Ponsel");
+
         digitsButton.setCallback(new AuthCallback() {
             @Override
             public void success(DigitsSession session, String phoneNumber) {
+
+
+                // We need an Editor object to make preference changes.
+// All objects are from android.context.Context
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("ALREADY_AUTHENTICATED", true /** or false */);
+                editor.putString("PHONE", phoneNumber);
+
+// Commit the edits!
+                editor.commit();
+
                 // TODO: associate the session userID with your user model
                 Toast.makeText(getApplicationContext(), "Authentication successful for "
                         + phoneNumber, Toast.LENGTH_LONG).show();
@@ -186,6 +204,8 @@ public class LoginActivity extends AppCompatActivity {
                 y.putExtra("phone",phone);
                 startActivity(y);
 
+                finish();
+
 
 
 
@@ -199,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
                 x.putExtra("foto",foto);
                 x.putExtra("foto_ktp",foto_ktp);
                 startActivity(x);
+                finish();
             }
 
 

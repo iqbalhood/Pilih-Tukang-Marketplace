@@ -130,6 +130,9 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+        }else{
+            imageView.setVisibility(View.GONE);
+            imageView2.setVisibility(View.GONE);
         }
 
 
@@ -171,6 +174,9 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
 
 
+        imageView.setVisibility(View.VISIBLE);
+
+
 
     }
 
@@ -185,6 +191,8 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST2);
+
+        imageView2.setVisibility(View.VISIBLE);
 
 
     }

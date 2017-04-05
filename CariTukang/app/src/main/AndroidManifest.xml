@@ -30,8 +30,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SearchActivity" android:label="Cari Layanan" />
-        <activity android:name=".SearchResult" android:label="Hasil Pencarian" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="Pencarian Layanan" />
+        <activity
+            android:name=".SearchResult"
+            android:label="Hasil Pencarian" />
         <activity
             android:name=".DetailActivity"
             android:label="Detail Tukang"
@@ -41,12 +45,19 @@
             android:name="io.fabric.ApiKey"
             android:value="42e94bc29662d161e59dc929bc77978058fe7c6e" />
 
-        <activity android:name=".LoginActivity" android:label="Daftarkan Layanan"/>
-        <activity android:name=".DataUserActivity" android:label="Data Layanan" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Masukkan No Ponsel" />
+        <activity
+            android:name=".DataUserActivity"
+            android:label="Data Layanan" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".PengaturanActivity" android:label="Setting"></activity>
+        <activity
+            android:name=".PengaturanActivity"
+            android:label="Setting" />
+        <activity android:name=".GaleriProdukActivity"></activity>
     </application>
 
 </manifest>

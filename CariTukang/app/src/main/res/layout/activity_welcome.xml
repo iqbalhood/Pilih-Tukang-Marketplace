@@ -28,7 +28,7 @@
         android:textStyle="bold"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:layout_height="wrap_content"
-        android:text="Cari Layanan" />
+        android:text="Butuh Tukang?" />
 
     <Button
         android:id="@+id/buttonPasang"

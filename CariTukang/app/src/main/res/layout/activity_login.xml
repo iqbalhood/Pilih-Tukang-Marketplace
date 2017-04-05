@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masukkan Nomor Ponsel anda dengan menekan tombol dibawah untuk dapat mendaftarkan layanan"
+        android:text="Ketikkan No. Ponsel anda untuk login atau mendaftar"
         android:textStyle="bold"
         android:textSize="20sp"
         android:padding="20dp"
@@ -28,6 +28,8 @@
         android:gravity="center"
         android:id="@+id/auth_button"
         android:padding="30dp"
+        android:text="WADAWWW"
+        android:background="@drawable/bg_btn_green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
