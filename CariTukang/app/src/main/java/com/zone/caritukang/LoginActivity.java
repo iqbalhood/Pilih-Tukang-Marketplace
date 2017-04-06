@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TWITTER_KEY = "CQg5yb7Mh6qIva2zrnc7J2SoY";
     private static final String TWITTER_SECRET = "VMh0vLBOPHIRMasE3pEnMOCF2T77NK5wVqs7FQvptcKp3lAy5l";
 
-
+    String id = "";
     String nama = "";
     String phone = "";
     String detail = "";
@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
-
+                        id     = (object.getString("id"));
                         nama     = (object.getString("nama"));
                         detail   = (object.getString("detail"));
                         foto     = (object.getString("foto"));
@@ -199,8 +199,14 @@ public class LoginActivity extends AppCompatActivity {
 
             if(nama.isEmpty()){
 
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("ID", id);
+                editor.commit();
+
                 System.out.println("Kosong Barang Tu");
                 Intent y = new Intent(LoginActivity.this, DataUserActivity.class);
+                y.putExtra("id",id);
                 y.putExtra("phone",phone);
                 startActivity(y);
 
@@ -212,8 +218,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
             }else{
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("ID", id);
+                editor.commit();
+
                 Intent x = new Intent(LoginActivity.this, PengaturanActivity.class);
                 x.putExtra("phone",phone);
+                x.putExtra("id",id);
                 x.putExtra("nama",nama);
                 x.putExtra("detail",detail);
                 x.putExtra("foto",foto);

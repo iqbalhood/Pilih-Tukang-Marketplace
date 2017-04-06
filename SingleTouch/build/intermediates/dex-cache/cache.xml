@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/mac/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0_068e93a9a984398ef447f052ede991f4909b1e19.jar" />
+    </item>
+
+</items>

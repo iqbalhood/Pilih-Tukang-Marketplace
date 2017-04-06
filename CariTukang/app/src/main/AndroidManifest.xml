@@ -57,7 +57,10 @@
         <activity
             android:name=".PengaturanActivity"
             android:label="Setting" />
-        <activity android:name=".GaleriProdukActivity"></activity>
+        <activity
+            android:name=".GaleriProdukActivity"
+            android:label="Galeri Produk" />
+        <activity android:name=".ChangePhone"></activity>
     </application>
 
 </manifest>

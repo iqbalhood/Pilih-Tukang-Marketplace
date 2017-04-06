@@ -77,6 +77,8 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     String HP  = "";
 
+    String id = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         // Fungsi Cek data Apakah User telah ada
         Bundle extras = getIntent().getExtras();
         HP = extras.getString("phone");
+        id = extras.getString("id");
         String nama = extras.getString("nama");
         String detail = extras.getString("detail");
         String g1 = extras.getString("foto");

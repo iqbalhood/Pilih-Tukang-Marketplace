@@ -44,6 +44,10 @@ public class PengaturanActivity extends AppCompatActivity {
 
     String foto1 ="";
     String foto2 = "";
+    String foto3 = "";
+    String foto4 = "";
+    String foto5 = "";
+
 
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
@@ -73,6 +77,8 @@ public class PengaturanActivity extends AppCompatActivity {
         Button profilUser = (Button)findViewById(R.id.profilUser);
         Button btnLogout = (Button)findViewById(R.id.btnLogout);
         Button Galeri = (Button)findViewById(R.id.Galeri);
+        Button ubahHP = (Button)findViewById(R.id.ubahHP);
+
 
 
         profilUser.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +125,30 @@ public class PengaturanActivity extends AppCompatActivity {
 
                 Digits.clearActiveSession();
                 Digits.logout();
+                finish();
+
+            }
+        });
+
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Digits.clearActiveSession();
+                Digits.logout();
+
+                Bundle extras = getIntent().getExtras();
+
+                String phoneNumber = extras.getString("phone");
+                String id = extras.getString("id");
+
+                Intent x = new Intent(PengaturanActivity.this, ChangePhone.class);
+                x.putExtra("phone",phoneNumber);
+                x.putExtra("id",id);
+                startActivity(x);
+
+
                 finish();
 
             }
@@ -288,6 +318,9 @@ public class PengaturanActivity extends AppCompatActivity {
 
                         foto1     = (object.getString("foto1"));
                         foto2     = (object.getString("foto2"));
+                        foto3     = (object.getString("foto3"));
+                        foto4     = (object.getString("foto4"));
+                        foto5     = (object.getString("foto5"));
 
                     }
                     return true;
@@ -320,6 +353,9 @@ public class PengaturanActivity extends AppCompatActivity {
             x.putExtra("phone",HP);
             x.putExtra("foto1",foto1);
             x.putExtra("foto2",foto2);
+            x.putExtra("foto3",foto3);
+            x.putExtra("foto4",foto4);
+            x.putExtra("foto5",foto5);
             startActivity(x);
 
 
