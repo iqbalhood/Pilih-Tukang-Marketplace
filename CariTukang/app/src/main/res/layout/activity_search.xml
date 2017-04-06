@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_margin="30dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn_green"
+        android:background="@color/colorAccent"
         android:textColor="@color/common_google_signin_btn_text_dark"
         android:text="Pencarian" />
 

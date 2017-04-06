@@ -60,7 +60,11 @@
         <activity
             android:name=".GaleriProdukActivity"
             android:label="Galeri Produk" />
-        <activity android:name=".ChangePhone"></activity>
+        <activity android:name=".ChangePhone" />
+        <activity
+            android:name=".DetailSwipe"
+            android:label="@string/title_activity_detail_swipe"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

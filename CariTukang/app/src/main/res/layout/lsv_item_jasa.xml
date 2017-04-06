@@ -1,36 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/pid"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:visibility="gone" />
+
 
     <ImageView
-        android:id="@+id/imgJasa"
+        android:id="@+id/img_jasa"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/tukang"/>
+        android:layout_height="200dp"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop" />
 
+    <!-- Child linear layout with horizontal orientation -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_height="200dp"
+        android:gravity="bottom"
+        android:background="@drawable/drawer_top_gradient"
+        android:maxLines="2"
         android:padding="5dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_alignTop="@+id/img_jasa">
 
-        <TextView
-            android:id="@+id/namaJasa"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nama Penyedia Jasa"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/detailJasa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Keterangan Penyedia Jasa"/>
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/imgJasa"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/namaJasa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLines="2"
+                    android:padding="10dp"
+                    android:text="Nama Jasa"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/detailJasa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:padding="10dp"
+                    android:text="Keterangan"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
 
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

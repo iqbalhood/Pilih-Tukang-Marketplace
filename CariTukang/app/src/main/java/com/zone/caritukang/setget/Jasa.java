@@ -8,6 +8,7 @@ public class Jasa {
     private String id;
     private String nama;
     private String foto;
+    private String fproduk;
     private String detail;
 
     public Jasa(){
@@ -15,11 +16,12 @@ public class Jasa {
     }
 
 
-    public Jasa(String id, String nama, String foto, String detail) {
+    public Jasa(String id, String nama, String foto, String fproduk, String detail) {
         super();
         this.id = id;
         this.nama = nama;
         this.foto = foto;
+        this.fproduk = fproduk;
         this.detail = detail;
     }
 
@@ -46,6 +48,14 @@ public class Jasa {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getFproduk() {
+        return fproduk;
+    }
+
+    public void setFproduk(String fproduk) {
+        this.fproduk = fproduk;
     }
 
 

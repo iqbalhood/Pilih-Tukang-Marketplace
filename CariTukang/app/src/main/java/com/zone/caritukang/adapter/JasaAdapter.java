@@ -28,6 +28,8 @@ import com.zone.caritukang.setget.Jasa;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 
 public class JasaAdapter extends ArrayAdapter<Jasa> {
     ArrayList<Jasa> jasaList;
@@ -55,6 +57,7 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
             holder = new ViewHolder();
             v = vi.inflate(Resource, null);
             holder.imageview    = (ImageView) v.findViewById(R.id.imgJasa);
+            holder.imageProduk    = (ImageView) v.findViewById(R.id.img_jasa);
             holder.tvNama       = (TextView) v.findViewById(R.id.namaJasa);
             holder.tvDetail     = (TextView) v.findViewById(R.id.detailJasa);
             v.setTag(holder);
@@ -64,12 +67,15 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference(jasaList.get(position).getFoto());
+        StorageReference storageRef2 = storage.getReference(jasaList.get(position).getFproduk());
 
         //System.out.println(" FOTO GETTTT -- >"+ jasaList.get(position).getFoto());
 
      //   StorageReference riversRef = storageReference.child(String.valueOf(jasaList.get(position).getFoto()));
         holder.imageview.setImageResource(R.drawable.tukang);
-        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).into(holder.imageview);
+
+        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).bitmapTransform(new CropCircleTransformation(v.getContext())).into(holder.imageview);
+        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef2).into(holder.imageProduk);
         holder.tvNama.setText(jasaList.get(position).getNama());
         holder.tvDetail.setText(jasaList.get(position).getDetail());
         return v;
@@ -80,6 +86,7 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
     static class ViewHolder {
         public TextView  id;
         public ImageView imageview;
+        public ImageView imageProduk;
         public TextView  tvNama;
         public TextView  tvDetail;
     }

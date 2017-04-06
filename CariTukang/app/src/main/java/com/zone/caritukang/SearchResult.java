@@ -67,12 +67,12 @@ public class SearchResult extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 String idnya = String.valueOf(jasaList.get(position).getId());
                 String namanya = String.valueOf(jasaList.get(position).getNama());
-                String fotonya = String.valueOf(jasaList.get(position).getFoto());
+                String fotonya = String.valueOf(jasaList.get(position).getFproduk());
                 String detailnya = String.valueOf(jasaList.get(position).getDetail());
 
                 Log.v("IDnya :", idnya);
 
-                Intent k = new Intent(SearchResult.this, DetailActivity.class);
+                Intent k = new Intent(SearchResult.this, DetailSwipe.class);
                 k.putExtra("id", idnya );
                 k.putExtra("nama", namanya );
                 k.putExtra("foto", fotonya );
@@ -149,6 +149,7 @@ public class SearchResult extends AppCompatActivity {
                         jasa.setNama(object.getString("nama"));
                         jasa.setDetail(object.getString("detail"));
                         jasa.setFoto(object.getString("foto"));
+                        jasa.setFproduk(object.getString("foto1"));
                         jasaList.add(jasa);
                     }
                     return true;
