@@ -68,11 +68,17 @@ public class PengaturanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pengaturan);
 
 
+        Bundle extras = getIntent().getExtras();
+
+        String nama = extras.getString("nama");
+
+
 
         // Fungsi Cek data Apakah User telah ada
 
 
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setTitle(nama);
 
         Button profilUser = (Button)findViewById(R.id.profilUser);
         Button btnLogout = (Button)findViewById(R.id.btnLogout);
@@ -131,7 +137,7 @@ public class PengaturanActivity extends AppCompatActivity {
         });
 
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        ubahHP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
