@@ -149,7 +149,7 @@ public class PengaturanActivity extends AppCompatActivity {
                 String phoneNumber = extras.getString("phone");
                 String id = extras.getString("id");
 
-                Intent x = new Intent(PengaturanActivity.this, ChangePhone.class);
+                Intent x = new Intent(PengaturanActivity.this, OlphoneActivity.class);
                 x.putExtra("phone",phoneNumber);
                 x.putExtra("id",id);
                 startActivity(x);

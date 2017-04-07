@@ -169,4 +169,6 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_detail_swipe">DetailSwipe</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="setting_phone">Ubah Nomor Ponsel</string>
 </resources>
