@@ -82,6 +82,7 @@ public class DetailSwipe extends AppCompatActivity {
     String id = "";
 
     String nama = "";
+    String nama_jasa = "";
     String phone = "";
     String detail = "";
     String deskripsi = "";
@@ -138,6 +139,15 @@ public class DetailSwipe extends AppCompatActivity {
 
     }
 
+
+
+    //jika back button di klik
+    public boolean onOptionsItemSelected(MenuItem item) {
+         finish();
+
+        return true;
+    }
+
     //Asyc Task Ambil Data Detail User
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
@@ -188,6 +198,7 @@ public class DetailSwipe extends AppCompatActivity {
                         JSONObject object = jarray.getJSONObject(i);
                         id        = (object.getString("id"));
                         nama      = (object.getString("nama"));
+                        nama_jasa = (object.getString("nama_jasa"));
                         detail    = (object.getString("detail"));
                         deskripsi = (object.getString("deskripsi"));
                         foto      = (object.getString("foto"));
@@ -219,7 +230,7 @@ public class DetailSwipe extends AppCompatActivity {
             TextView namaJasa = (TextView)findViewById(R.id.namaJasa);
             ImageView imgJasa = (ImageView)findViewById(R.id.imgJasa);
 
-            namaJasa.setText(nama);
+            namaJasa.setText(nama+"\n"+nama_jasa);
             txtDeskripsi.setText(deskripsi);
             detailJasa.setText(detail);
 
@@ -241,27 +252,14 @@ public class DetailSwipe extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_detail_swipe, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_detail_swipe, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
