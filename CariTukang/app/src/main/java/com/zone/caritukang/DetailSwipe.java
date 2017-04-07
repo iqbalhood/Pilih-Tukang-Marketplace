@@ -1,5 +1,14 @@
 package com.zone.caritukang;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.net.ParseException;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +25,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.zone.caritukang.DataURL.ROOT_URL;
 
 public class DetailSwipe extends AppCompatActivity {
 
@@ -35,13 +68,63 @@ public class DetailSwipe extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+
+
+    private final static int NUM_PAGES = 4;
+    private List<ImageView> dots;
+
+    String  gambar1             = "";
+    String  gambar2             = "";
+    String  gambar3             = "";
+    String  gambar4             = "";
+    String  gambar5             = "";
+
+    String id = "";
+
+    String nama = "";
+    String phone = "";
+    String detail = "";
+    String deskripsi = "";
+    String foto = "";
+    String foto_ktp = "";
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_swiper);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
+        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        this.getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+
+
+
+
+        // Fungsi Cek data Apakah User telah ada
+        Bundle extras = getIntent().getExtras();
+        gambar1 = extras.getString("foto");
+        gambar2 = extras.getString("foto");
+        gambar3 = extras.getString("foto");
+        gambar4 = extras.getString("foto");
+        id = extras.getString("id");
+        phone = extras.getString("phone");
+
+        Toast.makeText(getApplicationContext(), "foto " +gambar1 , Toast.LENGTH_SHORT).show();
+
+
+        new JSONAsyncTask().execute(ROOT_URL+"/carijasa/detail_tukang.php?phone="+id);
+
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -50,10 +133,112 @@ public class DetailSwipe extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
+        addDots();
 
 
     }
+
+    //Asyc Task Ambil Data Detail User
+    class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(DetailSwipe.this);
+            dialog.setMessage("Sedang Mengambil Data...");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+
+
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+
+
+
+
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray = jsono.getJSONArray("jasa");
+
+
+                    System.out.println("jasa //------------------>> "+ data);
+
+
+
+                    for (int i = 0; i < jarray.length(); i++) {
+                        JSONObject object = jarray.getJSONObject(i);
+                        id        = (object.getString("id"));
+                        nama      = (object.getString("nama"));
+                        detail    = (object.getString("detail"));
+                        deskripsi = (object.getString("deskripsi"));
+                        foto      = (object.getString("foto"));
+                        foto_ktp  = (object.getString("foto_ktp"));
+
+                    }
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+            TextView txtDeskripsi = (TextView)findViewById(R.id.deskripsiJasa);
+            TextView detailJasa = (TextView)findViewById(R.id.detailJasa);
+            TextView namaJasa = (TextView)findViewById(R.id.namaJasa);
+            ImageView imgJasa = (ImageView)findViewById(R.id.imgJasa);
+
+            namaJasa.setText(nama);
+            txtDeskripsi.setText(deskripsi);
+            detailJasa.setText(detail);
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef1 = storage.getReference(foto);
+
+            Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).into(imgJasa);
+
+
+
+            //Toast.makeText(DetailSwipe.this, "Deksripsi " +deskripsi, Toast.LENGTH_LONG).show();
+
+            if(result == false)
+                Toast.makeText(DetailSwipe.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+
+
+        }
+    }
+
 
 
     @Override
@@ -107,9 +292,18 @@ public class DetailSwipe extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_detail_swipe, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            View rootView = inflater.inflate(R.layout.fragment_detail_activity_swipe, container, false);
+            ImageView gambarFragment = (ImageView)rootView.findViewById(R.id.gambarFragment);
+
+            String gambar            = getArguments().getString("gambar");
+            FirebaseStorage storage  = FirebaseStorage.getInstance();
+
+            System.out.println("GAMBARNYA "+ gambar);
+
+            StorageReference storageRef1 = storage.getReference(gambar);
+            Glide.with(this).using(new FirebaseImageLoader()).load(storageRef1).into(gambarFragment);
+           // Glide.with(this).load("http://static.republika.co.id/uploads/images/inpicture_slide/proses-pengelasan-ilustrasi-_140908133122-690.jpg").into(gambarFragment);
+
             return rootView;
         }
     }
@@ -128,7 +322,21 @@ public class DetailSwipe extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            String gbr = gambar1;
+
+            if(position == 0){
+                gbr = gambar1;
+            }else if(position == 1){
+                gbr = gambar2;
+            }else if(position == 2){
+                gbr = gambar3;
+            }else if(position == 3){
+                gbr = gambar4;
+            }else {
+                gbr = gambar1;
+            }
+
+            return PlaceholderFragment.newInstance((position + 1) , gbr);
         }
 
         @Override
@@ -150,4 +358,58 @@ public class DetailSwipe extends AppCompatActivity {
             return null;
         }
     }
+
+
+
+    public void addDots() {
+        dots = new ArrayList<>();
+        LinearLayout dotsLayout = (LinearLayout)findViewById(R.id.layoutDots);
+
+        for(int i = 0; i < NUM_PAGES; i++) {
+            ImageView dot = new ImageView(this);
+            if(i==0){
+                dot.setImageDrawable(getResources().getDrawable(R.drawable.round_view_white));
+            }else{
+                dot.setImageDrawable(getResources().getDrawable(R.drawable.round_view_grey));
+            }
+
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            params.setMargins(10, 10, 10, 10);
+            dotsLayout.addView(dot, params);
+
+            dots.add(dot);
+        }
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                selectDot(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    public void selectDot(int idx) {
+        Resources res = getResources();
+        for(int i = 0; i < NUM_PAGES; i++) {
+            int drawableId = (i==idx)?(R.drawable.round_view_white):(R.drawable.round_view_grey);
+            Drawable drawable = res.getDrawable(drawableId);
+            dots.get(i).setImageDrawable(drawable);
+
+
+        }
+    }
+
 }
