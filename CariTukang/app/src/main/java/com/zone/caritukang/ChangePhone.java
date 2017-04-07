@@ -194,9 +194,11 @@ public class ChangePhone extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ChangePhone.this);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("ID", id);
+                editor.putBoolean("ALREADY_AUTHENTICATED", true /** or false */);
+                editor.putString("PHONE", phone);
                 editor.commit();
 
-                Intent x = new Intent(ChangePhone.this, PengaturanActivity.class);
+                Intent x = new Intent(ChangePhone.this, WelcomeActivity.class);
                 x.putExtra("id",id);
                 x.putExtra("phone",phone);
                 startActivity(x);

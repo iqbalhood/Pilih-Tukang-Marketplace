@@ -36,9 +36,11 @@ public class OlphoneActivity extends AppCompatActivity {
                 String lama = edLama.getText().toString();
                 String relama = edReLama.getText().toString();
 
-                if(lama==relama){
+                if(lama.equals(relama)){
 
-                    if(lama==phone){
+                    String addon = "+"+lama;
+
+                    if(addon.equals(phone)){
 
                         Intent x = new Intent(OlphoneActivity.this, ChangePhone.class);
                         x.putExtra("phone",lama);
@@ -50,7 +52,9 @@ public class OlphoneActivity extends AppCompatActivity {
 
                     }else{
                         Toast.makeText(getApplicationContext(), "Nomor Ponsel Yang dimasukkan Berbeda Dengan Nomor Lama", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(getApplicationContext(), "Nomor Lama "+phone + "Nomor Sekarang" + addon, Toast.LENGTH_SHORT).show();
 
+                        System.out.println( "Nomor Lama "+phone + "Nomor Sekarang" + addon);
                     }
 
 

@@ -52,6 +52,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 import static com.zone.caritukang.DataURL.ROOT_URL;
 
 public class DetailSwipe extends AppCompatActivity {
@@ -258,7 +260,8 @@ public class DetailSwipe extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef1 = storage.getReference(foto);
 
-            Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).into(imgJasa);
+          //  Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).into(imgJasa);
+            Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).bitmapTransform(new CropCircleTransformation(DetailSwipe.this)).into(imgJasa);
 
 
 
@@ -321,6 +324,7 @@ public class DetailSwipe extends AppCompatActivity {
 
             StorageReference storageRef1 = storage.getReference(gambar);
             Glide.with(this).using(new FirebaseImageLoader()).load(storageRef1).into(gambarFragment);
+
            // Glide.with(this).load("http://static.republika.co.id/uploads/images/inpicture_slide/proses-pengelasan-ilustrasi-_140908133122-690.jpg").into(gambarFragment);
 
             return rootView;
@@ -374,7 +378,7 @@ public class DetailSwipe extends AppCompatActivity {
                 case 2:
                     return "SECTION 3";
                 case 3:
-                    return "SECTION 4";
+                    return "SECTION ";
             }
             return null;
         }
