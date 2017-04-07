@@ -67,44 +67,64 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        mFirebaseDatabaseReference = FirebaseDatabase.getInstance();
-//        mykotaDbReference =  mFirebaseDatabaseReference.getReference().child("kota");
+
+        new JSONAsyncTask().execute(ROOT_URL+"/carijasa/kategori.php");
+        new KOTAAsyncTask().execute(ROOT_URL+"/carijasa/kota.php");
+
+
+
+
+        Spinner mySpinner = (Spinner) findViewById(R.id.kategori_spinner);
+
+//        if(worldlist.isEmpty()){
 //
-//        System.out.println("KOTA" + mykotaDbReference);
+//            mySpinner.setVisibility(View.GONE);
 //
 //
+//        }else{
 //
-//        mFirebaseDatabaseReference.getReference().child("kota").addValueEventListener(new ValueEventListener() {
+//            // Spinner adapter
+//            mySpinner
+//                    .setAdapter(new ArrayAdapter<String>(SearchActivity.this,
+//                            android.R.layout.simple_spinner_dropdown_item,
+//                            worldlist));
+//
+//        }
+
+//        mySpinner.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Is better to use a List, because you don't know the size
-//                // of the iterator returned by dataSnapshot.getChildren() to
-//                // initialize the array
-//                final List<String> areas = new ArrayList<String>();
-//
-//                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-//                    String areaName = areaSnapshot.child("nama").getValue(String.class);
-//                    areas.add(areaName);
-//                }
-//
-//                Spinner areaSpinner = (Spinner) findViewById(R.id.kota_spinner);
-//                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_spinner_item, areas);
-//                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                areaSpinner.setAdapter(areasAdapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
+//            public void onClick(View view) {
+//                Toast.makeText(SearchActivity.this, "KATEGORI " + kategori, Toast.LENGTH_LONG).show();
 //            }
 //        });
 
 
 
-        new JSONAsyncTask().execute(ROOT_URL+"/carijasa/kategori.php");
-        new KOTAAsyncTask().execute(ROOT_URL+"/carijasa/kota.php");
-        new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php");
+        // Spinner on item click listener
+        mySpinner
+                .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0,
+                                               View arg1, int position, long arg3) {
+                        // TODO Auto-generated method stub
+                        // Locate the textviews in activity_main.xml
+                        System.out.println("ID KATEGORI"+idlist.get(position));
+
+                        kategori = idlist.get(position);
+                        namakategori = worldlist.get(position);
+
+                        Toast.makeText(SearchActivity.this, "KATEGORI " + kategori, Toast.LENGTH_LONG).show();
+
+                        new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php?id="+kategori);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(SearchActivity.this, "KATEGORI " + kategori, Toast.LENGTH_LONG).show();
+                    }
+                });
 
 
 
@@ -227,6 +247,16 @@ public class SearchActivity extends AppCompatActivity {
 
                             kategori = idlist.get(position);
                             namakategori = worldlist.get(position);
+
+
+
+                            if(kategori.equals("0")){
+                                Toast.makeText(SearchActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(SearchActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
+                                new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php?id="+kategori);
+
+                            }
                         }
 
                         @Override
@@ -343,6 +373,9 @@ public class SearchActivity extends AppCompatActivity {
 
                             kota = idkotalist.get(position);
                             namakota = worldkotalist.get(position);
+
+
+
                         }
 
                         @Override
@@ -437,38 +470,50 @@ public class SearchActivity extends AppCompatActivity {
             dialog.cancel();
             // adapter.notifyDataSetChanged();
 
-            sub = idsublist.get(0);
-            namasub = worldsublist.get(0);
-            Spinner mySpinner = (Spinner) findViewById(R.id.sub_spinner);
+            if(idsublist.isEmpty()){
+                Toast.makeText(SearchActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+                Spinner mySpinner = (Spinner) findViewById(R.id.sub_spinner);
+                mySpinner.setVisibility(View.GONE);
+            }else{
 
-            // Spinner adapter
-            mySpinner
-                    .setAdapter(new ArrayAdapter<String>(SearchActivity.this,
-                            android.R.layout.simple_spinner_dropdown_item,
-                            worldsublist));
+                sub = idsublist.get(0);
+                namasub = worldsublist.get(0);
+                Spinner mySpinner = (Spinner) findViewById(R.id.sub_spinner);
+
+                // Spinner adapter
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(SearchActivity.this,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                worldsublist));
 
 
 
-            // Spinner on item click listener
-            mySpinner
-                    .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                // Spinner on item click listener
+                mySpinner
+                        .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-                        @Override
-                        public void onItemSelected(AdapterView<?> arg0,
-                                                   View arg1, int position, long arg3) {
-                            // TODO Auto-generated method stub
-                            // Locate the textviews in activity_main.xml
-                            System.out.println("ID KATEGORI"+idsublist.get(position));
+                            @Override
+                            public void onItemSelected(AdapterView<?> arg0,
+                                                       View arg1, int position, long arg3) {
+                                // TODO Auto-generated method stub
+                                // Locate the textviews in activity_main.xml
+                                System.out.println("ID KATEGORI"+idsublist.get(position));
 
-                            sub = idsublist.get(position);
-                            namasub = worldsublist.get(position);
-                        }
+                                sub = idsublist.get(position);
+                                namasub = worldsublist.get(position);
+                            }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                            // TODO Auto-generated method stub
-                        }
-                    });
+                            @Override
+                            public void onNothingSelected(AdapterView<?> arg0) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
+
+                mySpinner.setVisibility(View.VISIBLE);
+
+            }
+
+
 
 
 
