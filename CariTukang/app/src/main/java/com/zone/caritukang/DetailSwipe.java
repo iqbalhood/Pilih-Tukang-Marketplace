@@ -3,14 +3,17 @@ package com.zone.caritukang;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ParseException;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -69,15 +72,14 @@ public class DetailSwipe extends AppCompatActivity {
     private ViewPager mViewPager;
 
 
-
     private final static int NUM_PAGES = 4;
     private List<ImageView> dots;
 
-    String  gambar1             = "";
-    String  gambar2             = "";
-    String  gambar3             = "";
-    String  gambar4             = "";
-    String  gambar5             = "";
+    String gambar1 = "";
+    String gambar2 = "";
+    String gambar3 = "";
+    String gambar4 = "";
+    String gambar5 = "";
 
     String id = "";
 
@@ -88,8 +90,6 @@ public class DetailSwipe extends AppCompatActivity {
     String deskripsi = "";
     String foto = "";
     String foto_ktp = "";
-
-
 
 
     @Override
@@ -107,9 +107,6 @@ public class DetailSwipe extends AppCompatActivity {
         this.getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-
-
-
         // Fungsi Cek data Apakah User telah ada
         Bundle extras = getIntent().getExtras();
         gambar1 = extras.getString("foto");
@@ -117,13 +114,12 @@ public class DetailSwipe extends AppCompatActivity {
         gambar3 = extras.getString("foto");
         gambar4 = extras.getString("foto");
         id = extras.getString("id");
-        phone = extras.getString("phone");
+        phone = id;
 
-        Toast.makeText(getApplicationContext(), "foto " +gambar1 , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "foto " + gambar1, Toast.LENGTH_SHORT).show();
 
 
-        new JSONAsyncTask().execute(ROOT_URL+"/carijasa/detail_tukang.php?phone="+id);
-
+        new JSONAsyncTask().execute(ROOT_URL + "/carijasa/detail_tukang.php?phone=" + id);
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -135,6 +131,31 @@ public class DetailSwipe extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         addDots();
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bundle extras = getIntent().getExtras();
+                String  phone = extras.getString("id");
+
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+                if (ActivityCompat.checkSelfPermission(DetailSwipe.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(intent);
+
+            }
+        });
 
 
     }
@@ -340,7 +361,7 @@ public class DetailSwipe extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
@@ -352,6 +373,8 @@ public class DetailSwipe extends AppCompatActivity {
                     return "SECTION 2";
                 case 2:
                     return "SECTION 3";
+                case 3:
+                    return "SECTION 4";
             }
             return null;
         }

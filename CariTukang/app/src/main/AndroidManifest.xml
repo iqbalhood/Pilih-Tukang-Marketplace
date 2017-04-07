@@ -64,7 +64,8 @@
         <activity
             android:name=".DetailSwipe"
             android:label="@string/title_activity_detail_swipe"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".OlphoneActivity"></activity>
     </application>
 
 </manifest>
