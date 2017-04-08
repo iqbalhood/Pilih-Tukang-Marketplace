@@ -40,6 +40,25 @@
             android:padding="10dp"
             android:textColor="#FFF"
             android:layout_marginBottom="10dp"/>
+
+
+        <TextView
+
+            android:text="Nama Jasa"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/edNamaJasa"
+            android:layout_width="match_parent"
+            android:background="@drawable/edbox"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:textColor="#FFF"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
             android:text="Alamat Anda / Toko"
             android:textStyle="bold"
@@ -73,6 +92,70 @@
             android:layout_height="90dp"
             android:textColor="#FFF"
             android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KOTA"/>
+
+            <Spinner
+                android:id="@+id/kota_spinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KATEGORI"/>
+
+            <Spinner
+                android:id="@+id/kategori_spinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtSUB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SUB"/>
+
+            <Spinner
+                android:id="@+id/sub_spinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"

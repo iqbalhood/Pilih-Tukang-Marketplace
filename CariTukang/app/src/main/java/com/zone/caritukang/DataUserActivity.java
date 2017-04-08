@@ -12,9 +12,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +46,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.zone.caritukang.DataURL.ROOT_URL;
 
@@ -79,6 +84,36 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
     String id = "";
 
+    //Untuk Spinner
+    ArrayList<String> worldlist;
+    ArrayList<String> idlist;
+
+
+    ArrayList<String> worldkotalist;
+    ArrayList<String> idkotalist;
+
+    ArrayList<String> worldsublist;
+    ArrayList<String> idsublist;
+
+    String kategori = "0";
+    String namakategori = "0";
+
+    String kota = "0";
+    String namakota = "0";
+
+    String sub = "0";
+    String namasub = "0";
+
+    String Xlokasi      = "";
+    String Xkategori    = "";
+    String Xsub         = "";
+    String XnamaJasa    = "";
+
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +129,10 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         String detail = extras.getString("detail");
         String g1 = extras.getString("foto");
         String g2 = extras.getString("foto_ktp");
+        Xlokasi = extras.getString("lokasi");
+        Xkategori = extras.getString("kategori");
+        XnamaJasa = extras.getString("nama_jasa");
+        Xsub = extras.getString("sub");
 
         System.out.println(" G1 "+ g1);
 
@@ -110,10 +149,12 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         EditText edNama = (EditText)findViewById(R.id.edNama);
         EditText edAlamat = (EditText)findViewById(R.id.edAlamat);
         EditText edDetail = (EditText)findViewById(R.id.edDetail);
+        EditText edNamaJasa = (EditText)findViewById(R.id.edNamaJasa);
 
         edNama.setText(nama);
         edDetail.setText(detail);
         edAlamat.setText(detail);
+        edNamaJasa.setText(XnamaJasa);
 
         if(!empty(g1)){
 
@@ -138,7 +179,10 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             imageView2.setVisibility(View.GONE);
         }
 
+        Toast.makeText(getApplicationContext(), "SUB"+sub, Toast.LENGTH_LONG).show();
 
+        new SPINNERAsyncTask().execute(ROOT_URL+"/carijasa/kategori.php");
+        new KOTAAsyncTask().execute(ROOT_URL+"/carijasa/kota.php");
 
 
 
@@ -152,6 +196,15 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
         //getting firebase storage reference
         storageReference = FirebaseStorage.getInstance().getReference();
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -233,10 +286,7 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         if ( stat == stat2){
             Toast.makeText(getApplicationContext(), "WADAW " + stat, Toast.LENGTH_LONG).show();
             if (requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//
-//            uploadFile2();
-//
-//
+
             filePath2 = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath2);
@@ -251,37 +301,6 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
-
-//        if ( stat == stat1 && requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//
-//
-//
-//            uploadFile();
-//
-//            filePath = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-//                imageView.setImageBitmap(bitmap);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        else if (stat == stat2 && requestCode == PICK_IMAGE_REQUEST2 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//
-//            uploadFile2();
-//
-//
-//            filePath2 = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath2);
-//                imageView2.setImageBitmap(bitmap);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     //this method will upload the file
@@ -420,26 +439,42 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
         else  if (view == btnSubmit) {
 
 
-            Bundle extras = getIntent().getExtras();
+            if(URL1.isEmpty()&&URL2.isEmpty()){
 
-            String  phone = extras.getString("phone");
+                Toast.makeText(this, "KOSONG CUYYY ", Toast.LENGTH_LONG);
 
-            System.out.println(" PHONE USERNYA "+ HP );
-
-
-            EditText edNama = (EditText)findViewById(R.id.edNama);
-            EditText edAlamat = (EditText)findViewById(R.id.edAlamat);
-            EditText edDetail = (EditText)findViewById(R.id.edDetail);
-
-            new JSONAsyncTask().execute(ROOT_URL+"/carijasa/submit_data_tukang.php?phone="+HP+
-                                                "&nama="+edNama.getText().toString()+
-                                                "&alamat="+edAlamat.getText().toString()+
-                                                "&detail="+edDetail.getText().toString()+
-                                                "&foto="+URL1+
-                                                "&foto_ktp="+URL2);
+            }else {
 
 
+                Bundle extras = getIntent().getExtras();
 
+                String phone = extras.getString("phone");
+
+                System.out.println(" PHONE USERNYA " + HP);
+
+
+                EditText edNama = (EditText) findViewById(R.id.edNama);
+                EditText edAlamat = (EditText) findViewById(R.id.edAlamat);
+                EditText edDetail = (EditText) findViewById(R.id.edDetail);
+                EditText edNamaJasa = (EditText) findViewById(R.id.edNamaJasa);
+
+
+                new JSONAsyncTask().execute(ROOT_URL + "/carijasa/submit_data_tukang.php?phone=" + HP +
+                        "&nama=" + edNama.getText().toString() +
+                        "&nama_jasa=" + edNamaJasa.getText().toString() +
+                        "&alamat=" + edAlamat.getText().toString() +
+                        "&detail=" + edDetail.getText().toString()+
+                        "&lokasi=" + kota +
+                        "&kategori=" + kategori+
+                        "&sub=" + sub +
+                        "&foto=" + URL1 +
+                        "&foto_ktp=" + URL2);
+
+
+               // Toast.makeText(this, "kategroir "+kategori +"kota "+kota+" SUB "+sub, Toast.LENGTH_LONG).show();
+
+
+            }
 
 
 
@@ -519,31 +554,401 @@ public class DataUserActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(DataUserActivity.this, "Proses Update Berhasil", Toast.LENGTH_LONG).show();
             finish();
 
+            if(result == false)
+                Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
 
-//            if(nama.isEmpty()){
-//
-//                System.out.println("Kosong Barang Tu");
-//                Intent y = new Intent(LoginActivity.this, DataUserActivity.class);
-//                y.putExtra("phone",phone);
-//                startActivity(y);
-//
-//
-//
-//
-//
-//
-//            }else{
-//                Intent x = new Intent(LoginActivity.this, SettingsActivity.class);
-//                startActivity(x);
-//            }
+        }
+    }
 
+
+
+
+    ///SPINNER FUNCTION
+
+    class SPINNERAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(DataUserActivity.this);
+            dialog.setMessage("Sedang Mengambil Data...");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+                worldlist = new ArrayList<String>();
+                idlist = new ArrayList<String>();
+
+
+                worldlist.add("ALL");
+                idlist.add("0");
+
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+
+
+
+
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray = jsono.getJSONArray("kategori");
+
+
+
+                    for (int i = 0; i < jarray.length(); i++) {
+                        JSONObject object = jarray.getJSONObject(i);
+
+                        idlist.add(object.getString("id"));
+                        worldlist.add(object.getString("nama"));
+                        //idlist.add(object.getString("nama"));
+
+                    }
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+            kategori = idlist.get(0);
+            namakategori = worldlist.get(0);
+            Spinner mySpinner = (Spinner) findViewById(R.id.kategori_spinner);
+
+
+            // Spinner adapter
+            mySpinner
+                    .setAdapter(new ArrayAdapter<String>(DataUserActivity.this,
+                            android.R.layout.simple_spinner_dropdown_item,
+                            worldlist));
+
+
+
+            // Spinner on item click listener
+            mySpinner
+                    .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0,
+                                                   View arg1, int position, long arg3) {
+                            // TODO Auto-generated method stub
+                            // Locate the textviews in activity_main.xml
+                            System.out.println("ID KATEGORI"+idlist.get(position));
+
+                            kategori = idlist.get(position);
+                            namakategori = worldlist.get(position);
+
+
+                            Spinner subSpinner = (Spinner) findViewById(R.id.sub_spinner);
+                            TextView txtSUB = (TextView)findViewById(R.id.txtSUB);
+
+
+
+                            if(kategori.equals("0")){
+                                subSpinner.setVisibility(View.GONE);
+                                txtSUB.setVisibility(View.GONE);
+                                Toast.makeText(DataUserActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
+                            }else{
+                                subSpinner.setVisibility(View.VISIBLE);
+                                txtSUB.setVisibility(View.VISIBLE);
+                                Toast.makeText(DataUserActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
+                                new DataUserActivity.SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php?id="+kategori);
+
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                            // TODO Auto-generated method stub
+                        }
+                    });
 
 
 
             if(result == false)
                 Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
+        }
+    }
+
+
+    class KOTAAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(DataUserActivity.this);
+            dialog.setMessage("Sedang Mengambil Data...");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+                worldkotalist = new ArrayList<String>();
+                idkotalist = new ArrayList<String>();
+
+
+//                worldkotalist.add("ALL");
+//                idkotalist.add("0");
+
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+
+
+
+
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray = jsono.getJSONArray("kota");
+
+
+
+                    for (int i = 0; i < jarray.length(); i++) {
+                        JSONObject object = jarray.getJSONObject(i);
+
+                        idkotalist.add(object.getString("id"));
+                        worldkotalist.add(object.getString("nama"));
+                        //idlist.add(object.getString("nama"));
+
+                    }
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+            kota = idkotalist.get(0);
+            namakota = worldkotalist.get(0);
+            Spinner mySpinner = (Spinner) findViewById(R.id.kota_spinner);
+
+
+            // Spinner adapter
+            mySpinner
+                    .setAdapter(new ArrayAdapter<String>(DataUserActivity.this,
+                            android.R.layout.simple_spinner_dropdown_item,
+                            worldkotalist));
+
+
+
+            // Spinner on item click listener
+            mySpinner
+                    .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0,
+                                                   View arg1, int position, long arg3) {
+                            // TODO Auto-generated method stub
+                            // Locate the textviews in activity_main.xml
+                            System.out.println("ID KATEGORI"+idkotalist.get(position));
+
+                            kota = idkotalist.get(position);
+                            namakota = worldkotalist.get(position);
+
+
+
+
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                            // TODO Auto-generated method stub
+                        }
+                    });
+
+
+
+            if(result == false)
+                Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+
+
+
+
+    class SUBAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(DataUserActivity.this);
+            dialog.setMessage("Sedang Mengambil Data...");
+            dialog.setTitle("Connecting server");
+            dialog.show();
+            dialog.setCancelable(false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls) {
+            try {
+
+                //------------------>>
+                HttpGet httppost = new HttpGet(urls[0]);
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = httpclient.execute(httppost);
+
+                // StatusLine stat = response.getStatusLine();
+                int status = response.getStatusLine().getStatusCode();
+
+                worldsublist = new ArrayList<String>();
+                idsublist = new ArrayList<String>();
+
+
+//                worldsublist.add("ALL");
+//                idsublist.add("0");
+
+
+                if (status == 200) {
+                    HttpEntity entity = response.getEntity();
+                    String data = EntityUtils.toString(entity);
+
+
+
+
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray = jsono.getJSONArray("sub");
+
+
+
+                    for (int i = 0; i < jarray.length(); i++) {
+                        JSONObject object = jarray.getJSONObject(i);
+
+                        idsublist.add(object.getString("id"));
+                        worldsublist.add(object.getString("nama"));
+                        //idlist.add(object.getString("nama"));
+
+                    }
+                    return true;
+                }
+
+                //------------------>>
+
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            dialog.cancel();
+            // adapter.notifyDataSetChanged();
+
+            if(idsublist.isEmpty()){
+                Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+                Spinner mySpinner = (Spinner) findViewById(R.id.sub_spinner);
+                mySpinner.setVisibility(View.GONE);
+            }else{
+
+                sub = idsublist.get(0);
+                namasub = worldsublist.get(0);
+                Spinner mySpinner = (Spinner) findViewById(R.id.sub_spinner);
+
+                // Spinner adapter
+                mySpinner
+                        .setAdapter(new ArrayAdapter<String>(DataUserActivity.this,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                worldsublist));
+
+
+
+                // Spinner on item click listener
+                mySpinner
+                        .setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                            @Override
+                            public void onItemSelected(AdapterView<?> arg0,
+                                                       View arg1, int position, long arg3) {
+                                // TODO Auto-generated method stub
+                                // Locate the textviews in activity_main.xml
+                                System.out.println("ID KATEGORI"+idsublist.get(position));
+
+                                sub = idsublist.get(position);
+                                namasub = worldsublist.get(position);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> arg0) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
+
+                mySpinner.setVisibility(View.VISIBLE);
+
+            }
+
+
+
+
+
+            if(result == false)
+                Toast.makeText(DataUserActivity.this, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
 
         }
     }

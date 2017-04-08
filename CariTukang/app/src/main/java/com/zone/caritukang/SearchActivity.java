@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -226,6 +227,7 @@ public class SearchActivity extends AppCompatActivity {
             namakategori = worldlist.get(0);
             Spinner mySpinner = (Spinner) findViewById(R.id.kategori_spinner);
 
+
             // Spinner adapter
             mySpinner
                     .setAdapter(new ArrayAdapter<String>(SearchActivity.this,
@@ -249,10 +251,18 @@ public class SearchActivity extends AppCompatActivity {
                             namakategori = worldlist.get(position);
 
 
+                            Spinner subSpinner = (Spinner) findViewById(R.id.sub_spinner);
+                            TextView txtSUB = (TextView)findViewById(R.id.txtSUB);
+
+
 
                             if(kategori.equals("0")){
+                                subSpinner.setVisibility(View.GONE);
+                                txtSUB.setVisibility(View.GONE);
                                 Toast.makeText(SearchActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
                             }else{
+                                subSpinner.setVisibility(View.VISIBLE);
+                                txtSUB.setVisibility(View.VISIBLE);
                                 Toast.makeText(SearchActivity.this, "MAENKAN"+ kategori, Toast.LENGTH_LONG).show();
                                 new SUBAsyncTask().execute(ROOT_URL+"/carijasa/sub.php?id="+kategori);
 
@@ -352,6 +362,7 @@ public class SearchActivity extends AppCompatActivity {
             namakota = worldkotalist.get(0);
             Spinner mySpinner = (Spinner) findViewById(R.id.kota_spinner);
 
+
             // Spinner adapter
             mySpinner
                     .setAdapter(new ArrayAdapter<String>(SearchActivity.this,
@@ -373,6 +384,8 @@ public class SearchActivity extends AppCompatActivity {
 
                             kota = idkotalist.get(position);
                             namakota = worldkotalist.get(position);
+
+
 
 
 

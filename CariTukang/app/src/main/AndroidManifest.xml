@@ -22,6 +22,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,14 +33,17 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SearchActivity"
-            android:label="Pencarian Layanan" />
+            android:label="Pencarian Layanan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SearchResult"
-            android:label="Hasil Pencarian" />
+            android:label="Hasil Pencarian"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DetailActivity"
             android:label="Detail Tukang"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -47,23 +51,31 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="Masukkan No Ponsel" />
+            android:label="Masukkan No Ponsel"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DataUserActivity"
-            android:label="Data Layanan" />
+            android:label="Data Layanan"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PengaturanActivity"
-            android:label="Setting" />
+            android:label="Setting"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GaleriProdukActivity"
-            android:label="Galeri Produk" />
-        <activity android:name=".ChangePhone" />
+            android:label="Galeri Produk"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChangePhone"
+            android:label="Change Phone"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DetailSwipe"
             android:label="@string/title_activity_detail_swipe"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".OlphoneActivity"></activity>
     </application>

@@ -50,10 +50,14 @@ public class LoginActivity extends AppCompatActivity {
 
     String id = "";
     String nama = "";
+    String nama_jasa = "";
     String phone = "";
     String detail = "";
     String foto = "";
     String foto_ktp = "";
+    String lokasi = "";
+    String kategori = "";
+    String sub = "";
 
 
 
@@ -170,11 +174,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
-                        id     = (object.getString("id"));
-                        nama     = (object.getString("nama"));
-                        detail   = (object.getString("detail"));
-                        foto     = (object.getString("foto"));
-                        foto_ktp = (object.getString("foto_ktp"));
+                        id          = (object.getString("id"));
+                        nama        = (object.getString("nama"));
+                        detail      = (object.getString("detail"));
+                        foto        = (object.getString("foto"));
+                        foto_ktp    = (object.getString("foto_ktp"));
+                        lokasi      = (object.getString("lokasi"));
+                        kategori    = (object.getString("kategori"));
+                        sub         = (object.getString("sub"));
+                        nama_jasa   = (object.getString("nama_jasa"));
 
                     }
                     return true;
@@ -208,6 +216,16 @@ public class LoginActivity extends AppCompatActivity {
                 Intent y = new Intent(LoginActivity.this, DataUserActivity.class);
                 y.putExtra("id",id);
                 y.putExtra("phone",phone);
+                y.putExtra("phone",phone);
+                y.putExtra("id",id);
+                y.putExtra("nama",nama);
+                y.putExtra("detail",detail);
+                y.putExtra("foto",foto);
+                y.putExtra("foto_ktp",foto_ktp);
+                y.putExtra("lokasi","0");
+                y.putExtra("kategori","0");
+                y.putExtra("sub","0");
+                y.putExtra("nama_jasa",nama_jasa);
                 startActivity(y);
 
                 finish();
@@ -231,6 +249,10 @@ public class LoginActivity extends AppCompatActivity {
                 x.putExtra("detail",detail);
                 x.putExtra("foto",foto);
                 x.putExtra("foto_ktp",foto_ktp);
+                x.putExtra("lokasi",lokasi);
+                x.putExtra("kategori",kategori);
+                x.putExtra("sub",sub);
+                x.putExtra("nama_jasa",nama_jasa);
                 startActivity(x);
                 finish();
             }
