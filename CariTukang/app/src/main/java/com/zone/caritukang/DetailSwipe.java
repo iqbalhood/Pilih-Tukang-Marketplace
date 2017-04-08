@@ -118,10 +118,12 @@ public class DetailSwipe extends AppCompatActivity {
         id = extras.getString("id");
         phone = id;
 
+        new JSONAsyncTask().execute(ROOT_URL + "/carijasa/detail_tukang.php?phone="+id);
+
         Toast.makeText(getApplicationContext(), "foto " + gambar1, Toast.LENGTH_SHORT).show();
 
 
-        new JSONAsyncTask().execute(ROOT_URL + "/carijasa/detail_tukang.php?phone=" + id);
+
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -246,7 +248,6 @@ public class DetailSwipe extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             dialog.cancel();
-            // adapter.notifyDataSetChanged();
 
             TextView txtDeskripsi = (TextView)findViewById(R.id.deskripsiJasa);
             TextView detailJasa = (TextView)findViewById(R.id.detailJasa);
@@ -259,8 +260,6 @@ public class DetailSwipe extends AppCompatActivity {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef1 = storage.getReference(foto);
-
-          //  Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).into(imgJasa);
             Glide.with(DetailSwipe.this).using(new FirebaseImageLoader()).load(storageRef1).bitmapTransform(new CropCircleTransformation(DetailSwipe.this)).into(imgJasa);
 
 

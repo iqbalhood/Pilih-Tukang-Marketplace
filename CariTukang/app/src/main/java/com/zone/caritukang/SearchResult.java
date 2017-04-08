@@ -48,6 +48,9 @@ public class SearchResult extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        
+
+
 
         jasaList = new ArrayList<Jasa>();
         new JSONAsyncTask().execute(ROOT_URL+"/carijasa/list_jasa.php");

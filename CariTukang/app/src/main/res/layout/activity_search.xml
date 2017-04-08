@@ -22,7 +22,7 @@
         <Spinner
             android:id="@+id/kota_spinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -38,12 +38,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="KATEGORI"/>
+            android:text="BAGIAN"/>
 
         <Spinner
             android:id="@+id/kategori_spinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -61,22 +61,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SUB"/>
+            android:text="JENIS"/>
 
         <Spinner
             android:id="@+id/sub_spinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
 
     <EditText
+        android:id="@+id/edKeyword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Keyword"/>
+        android:hint="Kata Pencarian"/>
 
 
 

@@ -66,16 +66,39 @@ public class JasaAdapter extends ArrayAdapter<Jasa> {
         }
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference(jasaList.get(position).getFoto());
-        StorageReference storageRef2 = storage.getReference(jasaList.get(position).getFproduk());
+
+
 
         //System.out.println(" FOTO GETTTT -- >"+ jasaList.get(position).getFoto());
 
      //   StorageReference riversRef = storageReference.child(String.valueOf(jasaList.get(position).getFoto()));
         holder.imageview.setImageResource(R.drawable.tukang);
 
-        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).bitmapTransform(new CropCircleTransformation(v.getContext())).into(holder.imageview);
-        Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef2).into(holder.imageProduk);
+
+        if(jasaList.get(position).getFoto().isEmpty()){
+            Glide.with(v.getContext()).load("https://www.taxoutlook.in/images/icon_pro.jpg").bitmapTransform(new CropCircleTransformation(v.getContext())).into(holder.imageview);
+
+        }else{
+            StorageReference storageRef = storage.getReference(jasaList.get(position).getFoto());
+            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef).bitmapTransform(new CropCircleTransformation(v.getContext())).into(holder.imageview);
+
+        }
+
+        if(jasaList.get(position).getFproduk().isEmpty()){
+
+            Glide.with(v.getContext()).load("http://www.hotelogix.com/blog/wp-content/uploads/2015/08/great-hotel-service.jpg").into(holder.imageProduk);
+
+        }else{
+            StorageReference storageRef2 = storage.getReference(jasaList.get(position).getFproduk());
+            Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storageRef2).into(holder.imageProduk);
+
+        }
+
+
+
+
+
+
         holder.tvNama.setText(jasaList.get(position).getNama());
         holder.tvDetail.setText(jasaList.get(position).getDetail());
         return v;

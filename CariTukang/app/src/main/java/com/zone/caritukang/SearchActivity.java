@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.value;
 import static com.zone.caritukang.DataURL.ROOT_URL;
 
 public class SearchActivity extends AppCompatActivity {
@@ -133,8 +136,27 @@ public class SearchActivity extends AppCompatActivity {
         buttonPencarian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent k = new Intent(SearchActivity.this, SearchResult.class);
-                startActivity(k);
+
+                EditText edKeyword = (EditText)findViewById(R.id.edKeyword);
+                String kata = edKeyword.getText().toString();
+
+
+                String kat = kategori;
+                String subkat = sub;
+                String lokasi = kota;
+
+                String kunci = "?keyword="+kata+"&sub="+subkat+"&kat="+kat+"&lokasi="+lokasi;
+
+                try {
+                    String valuek = new String(kunci.getBytes("UTF-8"));
+                    Intent k = new Intent(SearchActivity.this, SearchResult.class);
+                    k.putExtra("key",valuek);
+                    startActivity(k);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         });
 
@@ -180,7 +202,7 @@ public class SearchActivity extends AppCompatActivity {
                 idlist = new ArrayList<String>();
 
 
-                worldlist.add("ALL");
+                worldlist.add("SEMUA KATEGORI");
                 idlist.add("0");
 
 
