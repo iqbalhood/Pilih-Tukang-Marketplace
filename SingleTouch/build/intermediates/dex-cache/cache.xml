@@ -2,13 +2,22 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="/Users/mac/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0_068e93a9a984398ef447f052ede991f4909b1e19.jar" />
+        sha1="72517296628da312b90357c919dae3527ca4e4c7">
+        <dex dex="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_9640facd9dc14df87f5f76d0787a8f95bde2f9d7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_abdfc77709c8d9ae00fd72cb238fd48e7f9d6d7d/classes.dex" />
     </item>
 
 </items>

@@ -1,0 +1,4 @@
+#Sun Apr 16 08:17:00 WIB 2017
+base.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0
+renamed.0=classes.dex
+file.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_0/classes.dex

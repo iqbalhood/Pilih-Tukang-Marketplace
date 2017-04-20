@@ -1,4 +1,7 @@
-#Thu Apr 06 09:55:09 WIB 2017
-base.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
-renamed.0=classes.dex
-file.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
+#Sun Apr 16 11:33:22 WIB 2017
+base.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_abdfc77709c8d9ae00fd72cb238fd48e7f9d6d7d
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_9640facd9dc14df87f5f76d0787a8f95bde2f9d7/classes.dex
+base.1=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_9640facd9dc14df87f5f76d0787a8f95bde2f9d7
+file.0=/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_abdfc77709c8d9ae00fd72cb238fd48e7f9d6d7d/classes.dex

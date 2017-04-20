@@ -1,6 +1,22 @@
 [
     {
+        "merged": "/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/res/merged/debug/drawable-hdpi/jalur2.png",
+        "source": "/Users/mac/Documents/CariTukang/SingleTouch/app/src/main/res/drawable-hdpi/jalur2.png"
+    },
+    {
         "merged": "/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png",
         "source": "/Users/mac/Documents/CariTukang/SingleTouch/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/res/merged/debug/drawable-hdpi/num1.png",
+        "source": "/Users/mac/Documents/CariTukang/SingleTouch/app/src/main/res/drawable-hdpi/num1.png"
+    },
+    {
+        "merged": "/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/res/merged/debug/drawable-hdpi/logo.png",
+        "source": "/Users/mac/Documents/CariTukang/SingleTouch/app/src/main/res/drawable-hdpi/logo.png"
+    },
+    {
+        "merged": "/Users/mac/Documents/CariTukang/SingleTouch/app/build/intermediates/res/merged/debug/drawable-hdpi/jalur1.png",
+        "source": "/Users/mac/Documents/CariTukang/SingleTouch/app/src/main/res/drawable-hdpi/jalur1.png"
     }
 ]

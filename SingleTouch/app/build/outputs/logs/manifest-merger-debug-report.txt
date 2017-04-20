@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:2:1-27:12
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:2:1-39:12
 	package
 		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:3:5-39
 		INJECTED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml
@@ -17,6 +17,18 @@ ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManif
 		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:2:11-69
 uses-sdk
 ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.3.1] /Users/mac/.android/build-cache/bfe668752f5b8de738a1785f39504bed95fa8759/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/mac/.android/build-cache/2c7539aa9386f7c413c489fb0b1357db374493fb/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/mac/.android/build-cache/4741aaed93ebb1ec51e02908ec46fc9b1239908c/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/mac/.android/build-cache/eeb1ce2f0e43f3ea1483cb28b3b71250468c207f/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/mac/.android/build-cache/9e58cb3511aa62285ba49ea8c1a0763cfcc1bd35/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/mac/.android/build-cache/b327a1fd40265cd4158f04d2e25620b69a4568c0/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/mac/.android/build-cache/888df1c3569a6589a7b24de8f1f54d9d2d9df3a3/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-compat:25.3.1] /Users/mac/.android/build-cache/012a87c5da23e0e4b8156a4512fada913611a1c5/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.1] /Users/mac/.android/build-cache/fdecd3072c2a25ef0d66003a7dc27062dc3eb0fd/output/AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
 		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:9:9-38
 		INJECTED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml
@@ -25,29 +37,83 @@ ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManif
 		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:8:9-34
 		INJECTED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:11:22-78
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:12:5-75
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:12:22-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:13:5-80
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:13:22-77
 application
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:11:5-25:19
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:15:5-37:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/mac/.android/build-cache/bfe668752f5b8de738a1785f39504bed95fa8759/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/mac/.android/build-cache/2c7539aa9386f7c413c489fb0b1357db374493fb/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/mac/.android/build-cache/4741aaed93ebb1ec51e02908ec46fc9b1239908c/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/mac/.android/build-cache/eeb1ce2f0e43f3ea1483cb28b3b71250468c207f/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/mac/.android/build-cache/9e58cb3511aa62285ba49ea8c1a0763cfcc1bd35/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/mac/.android/build-cache/b327a1fd40265cd4158f04d2e25620b69a4568c0/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/mac/.android/build-cache/888df1c3569a6589a7b24de8f1f54d9d2d9df3a3/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/mac/.android/build-cache/012a87c5da23e0e4b8156a4512fada913611a1c5/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.1] /Users/mac/.android/build-cache/fdecd3072c2a25ef0d66003a7dc27062dc3eb0fd/output/AndroidManifest.xml:9:5-20
 	android:label
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:14:9-41
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:18:9-41
 	android:allowBackup
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:12:9-35
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:16:9-35
 	android:icon
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:13:9-45
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:17:9-45
 	android:theme
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:15:9-40
-activity#belajar.game.singletouch.SingleTouchActivity
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:16:9-24:20
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:19:9-40
+activity#belajar.game.singletouch.MainActivity
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:20:9-29:20
 	android:label
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:18:13-45
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:22:13-45
+	android:theme
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:23:13-56
 	android:name
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:17:13-72
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:21:13-41
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:19:13-23:29
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:24:13-28:29
 action#android.intent.action.MAIN
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:20:17-69
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:25:17-69
 	android:name
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:20:25-66
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:25:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:22:17-77
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:27:17-77
 	android:name
-		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:22:27-74
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:27:27-74
+activity#belajar.game.singletouch.SingleTouchActivity
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:30:9-32:44
+	android:label
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:32:13-41
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:31:13-48
+activity#belajar.game.singletouch.JalurActivity
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:33:9-35:44
+	android:label
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:35:13-41
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:34:13-42
+activity#belajar.game.singletouch.TestGambarActivity
+ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:36:9-65
+	android:name
+		ADDED from /Users/mac/Documents/CariTukang/SingleTouch/app/src/main/AndroidManifest.xml:36:19-53
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/mac/.android/build-cache/bfe668752f5b8de738a1785f39504bed95fa8759/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/mac/.android/build-cache/2c7539aa9386f7c413c489fb0b1357db374493fb/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/mac/.android/build-cache/4741aaed93ebb1ec51e02908ec46fc9b1239908c/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/mac/.android/build-cache/eeb1ce2f0e43f3ea1483cb28b3b71250468c207f/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/mac/.android/build-cache/9e58cb3511aa62285ba49ea8c1a0763cfcc1bd35/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/mac/.android/build-cache/b327a1fd40265cd4158f04d2e25620b69a4568c0/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/mac/.android/build-cache/888df1c3569a6589a7b24de8f1f54d9d2d9df3a3/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/mac/.android/build-cache/012a87c5da23e0e4b8156a4512fada913611a1c5/output/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:appcompat-v7:25.3.1] /Users/mac/.android/build-cache/10060b1035beffb7aca71b8a92736daaa3d07486/output/AndroidManifest.xml:26:9-47
